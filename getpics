@@ -24,6 +24,6 @@ RANGE=`sudo gphoto2 -f "$store" --list-files|
 '}`
 echo $RANGE
 read
-sudo gphoto2 $store -p "$RANGE"
-#sudo gphoto2 $store --get-all-files 
+#sudo gphoto2 $store -p "$RANGE"
+sudo gphoto2 $store --get-all-files 
 
