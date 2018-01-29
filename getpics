@@ -1,0 +1,29 @@
+while [ $# -gt 0 ];do
+	exit
+done
+store="/store_00010001/DCIM/100EOS5D"
+
+tmp=/tmp/pics$$
+[ -d $tmp ] ||{
+	mkdir -p $tmp 
+	chown fulford $tmp
+}
+cd $tmp 
+#last=`ls *[JPGCR2]|awk 'END{print}'`
+#gphoto2 --auto-detect
+sudo gphoto2 -l
+RANGE=`sudo gphoto2 -f "$store" --list-files|
+	grep '^#'|
+	awk '/'$last'/{
+		gsub("#","",$1)
+		s=$1+1
+	}END{
+		gsub("#","",$1)
+		e=$1	
+		print(s"-"e)
+'}`
+echo $RANGE
+read
+sudo gphoto2 $store -p "$RANGE"
+#sudo gphoto2 $store --get-all-files 
+
